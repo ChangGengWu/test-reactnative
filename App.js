@@ -1,14 +1,48 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React,{useState, useEffect} from 'react';
+import {Alert, Button, StyleSheet, Text, View} from 'react-native';
+import Click from './src/Click';
+import ProductList from './src/product/ProductList';
+
 
 export default function App() {
+
   return (
+
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+
+      <ProductList/>
+
     </View>
+
   );
+  // const [count, setCount] = useState(10);
+
+  // let countString = "count in App:"+count;
+
+  // function updateCount(newCount){
+
+  //   setCount(newCount);
+
+  // }
+
+  // useEffect(()=>{
+
+  //   Alert.alert("count in App:"+count);});
+
+  // return (
+
+  //   <View style={styles.container}>
+
+  //     <Text>Hello</Text>
+
+  //     <Button title={countString} onPress={()=>setCount(count+1)}/>
+
+  //     <Click count={count} update={updateCount}/>
+
+  //   </View>
+
+  // );
 }
 
 const styles = StyleSheet.create({
