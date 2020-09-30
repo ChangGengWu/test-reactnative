@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React,{useState, useEffect} from 'react';
-import {Alert, Button, StyleSheet, Text, View} from 'react-native';
+import {Alert, Button, StyleSheet, Text, View,TouchableOpacity} from 'react-native';
 import Click from './src/Click';
 import ProductList from './src/product/ProductList';
 
