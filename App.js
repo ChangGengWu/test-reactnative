@@ -29,7 +29,6 @@ export default function App() {
   // useEffect(()=>{
 
   //   Alert.alert("count in App:"+count);});
-
   // return (
 
   //   <View style={styles.container}>
