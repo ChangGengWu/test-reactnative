@@ -7,7 +7,7 @@
 
 import React ,{useState}from 'react';
 
-import {FlatList, View, Text, StatusBar,StyleSheet,TouchableOpacity} from 'react-native';
+import {FlatList, View, Text, StatusBar,StyleSheet,TouchableOpacity,Button,Alert} from 'react-native';
 
 import ProductAdd from './ProductAdd';
 
@@ -16,11 +16,11 @@ import ProductAdd from './ProductAdd';
 
 const data =[
 
-  {name:"iPhone 7", price:12000},
+  {id:1,name:"iPhone 7", price:12000},
 
-  {name:"iPhone 8", price:10000},
+  {id:2,name:"iPhone 8", price:10000},
 
-  {name:"iPhone X", price:20000},
+  {id:3,name:"iPhone X", price:20000},
 
 ]
 
@@ -37,14 +37,22 @@ export default function ProductList() {
   const renderItem = ({ item, index }) => {
 
     const backgroundColor = index === selected ? "#f9c2ff" : "#00ffff";
+    const tit = "刪除" + item.id
 
     return(  
 
     <TouchableOpacity onPress = {()=>setSelected(index)} style={[styles.item, {backgroundColor}]}>
+      <Text style={styles.title}>{item.id}</Text>
 
       <Text style={styles.title}>{item.name}</Text>
 
       <Text>{item.price}</Text>
+      <Button 
+        title = {tit}
+        color="#f194ff"
+        // onPress={() => Alert.alert('delete item ' + index)}
+        onPress={p_delete.bind(item.id)}
+      />
 
       {/* <Text>/{index}</Text> */}
 
@@ -63,21 +71,19 @@ export default function ProductList() {
   }
 
   
-  function p_delete(newProduct){
-
-    setProducts(oldProducts=>oldProducts.filter(name =>(name !== name)));
-
+  function p_delete(id){
+    setProducts(products.filter(product => (product.id !== id)));
+    console.log(id)
   }
+  // const p_delete = index => e => {
+  //   setProducts(products.filter(product => product.index !== index));
+  // };
 
+return (
 
+    <View style={styles.container}>
 
-
-
- return (
-
-   <View style={styles.container}>
-
-   <FlatList
+    <FlatList
 
     data={products} 
 
@@ -87,13 +93,13 @@ export default function ProductList() {
 
     >
 
-   </FlatList>
+    </FlatList>
 
-   <ProductAdd update={update}/>
+    <ProductAdd update={update}/>
 
-   </View>
+    </View>
 
- );
+  );
 
 }
 
