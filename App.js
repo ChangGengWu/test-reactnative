@@ -15,7 +15,7 @@ function HomeScreen({ navigation }) {
 
       <Text>Home Screen</Text>
 
-      <Button style={styles.index_button}
+      <Button
 
         title="Go to Details"
 
