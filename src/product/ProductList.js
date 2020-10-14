@@ -5,11 +5,13 @@
 // 庫存量 / inventory (int) 
 // 安全存量 / safetyStock (int)
 
-import React ,{useState}from 'react';
+import React ,{useState,useEffect }from 'react';
 
 import {FlatList, View, Text, StatusBar,StyleSheet,TouchableOpacity,Button,Alert} from 'react-native';
 
 import ProductAdd from './ProductAdd';
+
+import ProductDel from './ProductDel';
 
 
 
@@ -32,6 +34,7 @@ export default function ProductList() {
 
   const [selected, setSelected] = useState(null);
   const [products, setProducts] = useState(data);
+  // useEffect(p_delete);
 
 
   const renderItem = ({ item, index }) => {
@@ -46,12 +49,14 @@ export default function ProductList() {
 
       <Text style={styles.title}>{item.name}</Text>
 
-      <Text>{item.price}</Text>
+      <Text style={styles.title}>{item.price}</Text>
       <Button 
         title = {tit}
         color="#f194ff"
         // onPress={() => Alert.alert('delete item ' + index)}
-        onPress={p_delete.bind(item.id)}
+
+        // () =>p_delete(item.id) :執行function || p_delete(item.id) 取得function回傳值
+        onPress={() =>p_delete(item.id)}
       />
 
       {/* <Text>/{index}</Text> */}
@@ -72,8 +77,10 @@ export default function ProductList() {
 
   
   function p_delete(id){
-    setProducts(products.filter(product => (product.id !== id)));
-    console.log(id)
+    //const r_products = products.filter(product => (product.id !== id))
+    setProducts(oldProducts => oldProducts.filter(product => (product.id !== id)));
+    //console.log(products)
+    //console.log(id)
   }
   // const p_delete = index => e => {
   //   setProducts(products.filter(product => product.index !== index));
@@ -234,7 +241,7 @@ const styles = StyleSheet.create({
   container: {
     //backgroundColor: '#00bfff',
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column',
     marginTop: StatusBar.currentHeight || 5,
     padding: 20,
   },
@@ -245,13 +252,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#00ffff',
     padding: 8,
-    marginVertical: 8,
-    marginHorizontal: 16,
+    marginVertical: 10,
+    marginHorizontal: 25,
 
   },
 
   title: {
     fontSize: 24,
+    marginHorizontal: 10,
   },
 
 });

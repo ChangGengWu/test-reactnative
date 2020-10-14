@@ -12,7 +12,7 @@ export default function ProductAdd(props) {
 
   function p_delete(){
 
-    props.update({name,price});
+    props.p_delete({props});
 
   }
 

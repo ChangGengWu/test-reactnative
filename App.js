@@ -3,9 +3,63 @@ import React,{useState, useEffect} from 'react';
 import {Alert, Button, StyleSheet, Text, View,TouchableOpacity} from 'react-native';
 import Click from './src/Click';
 import ProductList from './src/product/ProductList';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 
-export default function App() {
+function HomeScreen({ navigation }) {
+
+  return (
+
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center',flexDirection: 'column'}}>
+
+      <Text>Home Screen</Text>
+
+      <Button style={styles.index_button}
+
+        title="Go to Details"
+
+        onPress={() => navigation.navigate('Details')}
+
+      />
+      <Button
+
+      title="Go to Products"
+
+      onPress={() => navigation.navigate('Products')}
+
+      />
+
+    </View>
+
+  );
+
+}
+
+function DetailsScreen({ navigation }) {
+
+    return (
+
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+
+        <Text>Details Screen</Text>
+
+        <Button
+
+        title="Go to Home"
+
+        onPress={() => navigation.navigate('Home')}
+
+      />
+
+      </View>
+
+    );
+
+  }
+
+  
+function ProductScreen({ navigation }) {
 
   return (
 
@@ -14,6 +68,31 @@ export default function App() {
       <ProductList/>
 
     </View>
+
+  );
+
+}
+const Stack = createStackNavigator();
+
+export default function App() {
+
+  return (
+
+    <NavigationContainer>
+
+    <Stack.Navigator>
+    <Stack.Screen name="Home" component={HomeScreen} />
+    <Stack.Screen name="Details" component={DetailsScreen} />
+    <Stack.Screen name="Products" component={ProductScreen} />
+    </Stack.Navigator>
+
+  </NavigationContainer>
+
+    // <View style={styles.container}>
+
+    //   <ProductList/>
+
+    // </View>
 
   );
   // const [count, setCount] = useState(10);
@@ -44,6 +123,8 @@ export default function App() {
   // );
 }
 
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -51,4 +132,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  index_button:{
+    margin:10,
+    padding:10
+  }
 });

@@ -26,7 +26,7 @@ export default function ProductAdd(props) {
 
     <TextInput placeholder="價格" value={price} onChangeText={text=>setPrice(text)}/>
 
-    <Button onPress={update} title="新增"/>
+    <Button onPress={update} title={props}/>
 
     </View>
 
