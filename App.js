@@ -3,6 +3,7 @@ import React,{useState, useEffect} from 'react';
 import {Alert, Button, StyleSheet, Text, View,TouchableOpacity} from 'react-native';
 import Click from './src/Click';
 import ProductList from './src/product/ProductList';
+import PersonList from './src/person/PersonList';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -29,6 +30,13 @@ function HomeScreen({ navigation }) {
       onPress={() => navigation.navigate('Products')}
 
       />
+      <Button
+
+      title="Go to PersonList"
+
+      onPress={() => navigation.navigate('Persons')}
+
+/>
 
     </View>
 
@@ -72,6 +80,21 @@ function ProductScreen({ navigation }) {
   );
 
 }
+
+function PersonScreen({ navigation }) {
+
+  return (
+
+    <View style={styles.container}>
+
+      <PersonList/>
+
+    </View>
+
+  );
+
+}
+
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -84,6 +107,7 @@ export default function App() {
     <Stack.Screen name="Home" component={HomeScreen} />
     <Stack.Screen name="Details" component={DetailsScreen} />
     <Stack.Screen name="Products" component={ProductScreen} />
+    <Stack.Screen name="Persons" component={PersonScreen} />
     </Stack.Navigator>
 
   </NavigationContainer>
