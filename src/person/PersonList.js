@@ -1,28 +1,54 @@
 import React, {useState, useEffect} from 'react';
+import { StatusBar } from 'expo-status-bar';
+import {FlatList, View, Text,StyleSheet} from 'react-native';
 
-import {FlatList, View, Text} from 'react-native';
-
-//import {Icon, Fab} from 'native-base';
+import {Icon, Fab} from 'native-base';
 
 import axios from 'axios';
 
 
 
-//import ProductAdd from './ProductAdd';
+import PersonAdd from './PersonAdd';
 
-import styles from '../styles';
+//import styles from '../styles';
+
+import {axios_config, url} from './config';
 
 
 
 export default function PersonList() {
 
-  const axios_config = {
-     headers: {'Authorization': 'Bearer keySEVC5l6huQZqzW'}
-    };
-    
-  const url="https://api.airtable.com/v0/appyYwH8evTKvaSFF/Table%201?maxRecords=30&view=Grid%20view";
+  const get_url=url+"?maxRecords=50&view=Grid%20view";
+
+
 
   const [persons, setPersons] = useState([]);
+
+  const [modalVisible, setModalVisible] = useState(false);
+
+
+
+  async function fetchData () {
+      const result = await axios.get(get_url,axios_config);
+      //console.log(result);
+      setPersons(result.data.records);
+   }
+
+
+
+  useEffect(() => {
+
+    fetchData();
+
+  },[modalVisible]);
+
+
+
+  function update(){
+
+    setModalVisible(false);
+
+  }
 
 
 
@@ -34,33 +60,15 @@ export default function PersonList() {
 
     <Text style={styles.title}>{item.fields.name}</Text>
 
-    <Text>{item.fields.city},</Text>
+    <Text style={styles.title}>{item.fields.city},</Text>
 
-    <Text>{item.fields.age}</Text>
+    <Text style={styles.title}>{item.fields.age}</Text>
 
     </View>
 
   );
 
 
-
-  async function fetchData () {
-
-      const result = await axios.get(url,axios_config);
-
-      //console.log(result);
-
-      setPersons(result.data.records);
-
-  }
-
-
-
-  useEffect(() => {
-
-    fetchData();
-
-  },[]);
 
 
 
@@ -80,6 +88,14 @@ export default function PersonList() {
 
    </FlatList>
 
+   <Fab onPress={()=>setModalVisible(true)}>
+
+     <Icon ios='ios-add' android="md-add"/>
+
+   </Fab>
+
+   <PersonAdd modalVisible = {modalVisible} update={update}/>
+
    </View>
 
    
@@ -87,3 +103,31 @@ export default function PersonList() {
  );
 
 }
+
+const styles = StyleSheet.create({
+
+  container: {
+    //backgroundColor: '#00bfff',
+    flex: 1,
+    flexDirection: 'column',
+    marginTop: StatusBar.currentHeight || 5,
+    padding: 20,
+  },
+
+  item: {
+
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: '#00ffff',
+    padding: 8,
+    marginVertical: 10,
+    marginHorizontal: 25,
+
+  },
+
+  title: {
+    fontSize: 24,
+    marginHorizontal: 10,
+  },
+
+});
