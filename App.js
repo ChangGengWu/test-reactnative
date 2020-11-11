@@ -1,151 +1,65 @@
-import { StatusBar } from 'expo-status-bar';
-import React,{useState, useEffect} from 'react';
-import {Alert, Button, StyleSheet, Text, View,TouchableOpacity} from 'react-native';
-import Click from './src/Click';
-import ProductList from './src/product/ProductList';
-import PersonList from './src/person/PersonList';
+import React, {useState} from 'react';
+
+import { View, Text, StyleSheet } from 'react-native';
+
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+//import { createStackNavigator } from '@react-navigation/stack';
+
+import PersonList from './src/person/PersonList';
+
+import ProductList from './src/product/ProductList';
+
+import SignUp from './src/account/SignUp';
+import SignIn from './src/account/SignIn';
+import SignOut from './src/account/SignOut';
+// import Click from './Click';
 
 
-function HomeScreen({ navigation }) {
 
-  return (
+//const Stack = createStackNavigator();
 
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center',flexDirection: 'column'}}>
+const Tab = createBottomTabNavigator();
 
-      <Text>Home Screen</Text>
 
-      <Button
 
-        title="Go to Details"
+function App() {
 
-        onPress={() => navigation.navigate('Details')}
+  const [count, setCount] = useState(10);
 
-      />
-      <Button
+  let countString = "count in App:"+count;
 
-      title="Go to Products"
+  function updateCount(newCount){
 
-      onPress={() => navigation.navigate('Products')}
-
-      />
-      <Button
-
-      title="Go to PersonList"
-
-      onPress={() => navigation.navigate('Persons')}
-
-/>
-
-    </View>
-
-  );
-
-}
-
-function DetailsScreen({ navigation }) {
-
-    return (
-
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-
-        <Text>Details Screen</Text>
-
-        <Button
-
-        title="Go to Home"
-
-        onPress={() => navigation.navigate('Home')}
-
-      />
-
-      </View>
-
-    );
+    setCount(newCount);
 
   }
-
-  
-function ProductScreen({ navigation }) {
-
-  return (
-
-    <View style={styles.container}>
-
-      <ProductList/>
-
-    </View>
-
-  );
-
-}
-
-function PersonScreen({ navigation }) {
-
-  return (
-
-    <View style={styles.container}>
-
-      <PersonList/>
-
-    </View>
-
-  );
-
-}
-
-const Stack = createStackNavigator();
-
-export default function App() {
 
   return (
 
     <NavigationContainer>
 
-    <Stack.Navigator>
-    <Stack.Screen name="Home" component={HomeScreen} />
-    <Stack.Screen name="Details" component={DetailsScreen} />
-    <Stack.Screen name="Products" component={ProductScreen} />
-    <Stack.Screen name="Persons" component={PersonScreen} />
-    </Stack.Navigator>
+      <Tab.Navigator>
+        <Tab.Screen name="SignIn" component={SignIn} />
+        <Tab.Screen name="SignUp" component={SignUp} />
+        <Tab.Screen name="SignOut" component={SignOut} />
+        <Tab.Screen name="Person" component={PersonList} />
 
-  </NavigationContainer>
+        <Tab.Screen name="Product" component={ProductList} />
 
-    // <View style={styles.container}>
+        {/* <Tab.Screen name="Click" component={Click} initialParams={{ count: 10 }}/> */}
 
-    //   <ProductList/>
+      </Tab.Navigator>
 
-    // </View>
+    </NavigationContainer>
 
   );
-  // const [count, setCount] = useState(10);
 
-  // let countString = "count in App:"+count;
-
-  // function updateCount(newCount){
-
-  //   setCount(newCount);
-
-  // }
-
-  // useEffect(()=>{
-
-  //   Alert.alert("count in App:"+count);});
-  // return (
-
-  //   <View style={styles.container}>
-
-  //     <Text>Hello</Text>
-
-  //     <Button title={countString} onPress={()=>setCount(count+1)}/>
-
-  //     <Click count={count} update={updateCount}/>
-
-  //   </View>
-
-  // );
 }
+
+export default App;
 
 
 
