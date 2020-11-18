@@ -1,16 +1,17 @@
-import React, {useState} from 'react';
+import React, {useState,useContext} from 'react';
 
 import {Button, View, Text,StyleSheet,StatusBar } from 'react-native';
 
 import * as firebase from 'firebase';
 
 import * as FirebaseCore from 'expo-firebase-core';
-
+import {AuthContext} from '../account/AuthContext';
 // import styles from '../styles';
 
 
 
 export default function SignOut() {
+  const authContext = useContext(AuthContext)
 
   if (!firebase.apps.length) {
 
@@ -31,6 +32,7 @@ export default function SignOut() {
       await firebase.auth().signOut();
 
       console.log('User signed out successfully!');
+      authContext.setStatus(false);
 
     }
 

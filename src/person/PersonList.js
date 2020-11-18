@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect,useContext} from 'react';
 import { StatusBar } from 'expo-status-bar';
 import {FlatList, View, Text,StyleSheet} from 'react-native';
 
@@ -13,7 +13,7 @@ import PersonAdd from './PersonAdd';
 //import styles from '../styles';
 
 import {axios_config, url} from './config';
-
+import {AuthContext} from '../account/AuthContext';
 
 
 export default function PersonList() {
@@ -26,6 +26,8 @@ export default function PersonList() {
 
   const [modalVisible, setModalVisible] = useState(false);
 
+  const authContext = useContext(AuthContext)
+
 
 
   async function fetchData () {
@@ -37,6 +39,7 @@ export default function PersonList() {
 
 
   useEffect(() => {
+    console.log("sign in status：" + authContext.isSignedIn);
 
     fetchData();
 

@@ -15,6 +15,7 @@ import ProductList from './src/product/ProductList';
 import SignUp from './src/account/SignUp';
 import SignIn from './src/account/SignIn';
 import SignOut from './src/account/SignOut';
+import {AuthContext} from './src/account/AuthContext';
 // import Click from './Click';
 
 
@@ -26,6 +27,7 @@ const Tab = createBottomTabNavigator();
 
 
 function App() {
+  const [isSignedIn,setIsSignedIn] = useState(false);
 
   const [count, setCount] = useState(10);
 
@@ -40,19 +42,28 @@ function App() {
   return (
 
     <NavigationContainer>
-
+      <AuthContext.Provider value={{isSignedIn: isSignedIn, setStatus:setIsSignedIn }}>
       <Tab.Navigator>
-        <Tab.Screen name="SignIn" component={SignIn} />
-        <Tab.Screen name="SignUp" component={SignUp} />
-        <Tab.Screen name="SignOut" component={SignOut} />
+      {isSignedIn?(
+        <>
         <Tab.Screen name="Person" component={PersonList} />
-
         <Tab.Screen name="Product" component={ProductList} />
+        <Tab.Screen name="SignOut" component={SignOut} />
+        </>
+        )
+        :(
+          <>
+          <Tab.Screen name="SignIn" component={SignIn} />
+          <Tab.Screen name="SignUp" component={SignUp} />
+          </>
+        )
+        }
+        
 
         {/* <Tab.Screen name="Click" component={Click} initialParams={{ count: 10 }}/> */}
 
       </Tab.Navigator>
-
+      </AuthContext.Provider>
     </NavigationContainer>
 
   );

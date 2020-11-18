@@ -1,13 +1,15 @@
-import React, {useState} from 'react';
+import React, {useState,useContext} from 'react';
 import {Button, View, Text, TextInput, StyleSheet,StatusBar } from 'react-native';
 import * as firebase from 'firebase';
 import * as FirebaseCore from 'expo-firebase-core';
-
+import {AuthContext} from '../account/AuthContext';
+import * as SecureStore from 'expo-secure-store';
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const authContext = useContext(AuthContext);
   if (!firebase.apps.length) {
     firebase.initializeApp(FirebaseCore.DEFAULT_WEB_APP_OPTIONS);
   }
@@ -19,7 +21,9 @@ export default function SignIn() {
       setEmail('');
       setPassword('');
       setMessage('');
+      const loginString = JSON.stringify({email:email, password:password});
       await SecureStore.setItemAsync("login", loginString);
+      authContext.setStatus(true);
     }
     catch(error){
       setMessage(error.message);
