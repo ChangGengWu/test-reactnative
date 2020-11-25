@@ -16,6 +16,8 @@ import SignUp from './src/account/SignUp';
 import SignIn from './src/account/SignIn';
 import SignOut from './src/account/SignOut';
 import {AuthContext} from './src/account/AuthContext';
+import ImageUpload from './src/storage/ImageUpload';
+import indextest from './src/note-index/index';
 // import Click from './Click';
 
 
@@ -48,6 +50,7 @@ function App() {
         <>
         <Tab.Screen name="Person" component={PersonList} />
         <Tab.Screen name="Product" component={ProductList} />
+        <Tab.Screen name="Image" component={ImageUpload}/>
         <Tab.Screen name="SignOut" component={SignOut} />
         </>
         )
@@ -55,6 +58,7 @@ function App() {
           <>
           <Tab.Screen name="SignIn" component={SignIn} />
           <Tab.Screen name="SignUp" component={SignUp} />
+          <Tab.Screen name="index" component={indextest}/>
           </>
         )
         }
